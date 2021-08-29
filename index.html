@@ -47,16 +47,17 @@
         platforms.create(600, 400, "ground");
         platforms.create(50, 350, "ground");
         platforms.create(50, 150, "ground");
-        platforms.create(750, 220, "ground");
+        platforms.create(750, 240, "ground");
 
         player = this.physics.add.sprite(100, 450, "dude");
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
 
         player.body.setGravityY(300);
-        // this.physics.add.collider(player, platforms);
 
         scoreText = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#000" });
+        this.gameOverText = this.add.text(220, 280, "GAME OVER", { fontSize: "64px", fill: "#000" });
+        this.gameOverText.visible = false;
 
         this.anims.create({
           key: "left",
@@ -123,11 +124,12 @@
       function hitBomb(player, bomb) {
         this.physics.pause();
 
-        player.setTint(oxff0000);
+        player.setTint(0xff0000);
 
         player.anims.play("turn");
 
         gameOver = true;
+        this.gameOverText.visible = true;
       }
 
       function update() {
@@ -145,7 +147,6 @@
           player.anims.play("turn");
         }
         const didPressJump = Phaser.Input.Keyboard.JustDown(cursors.up);
-        // const didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
 
         if (didPressJump) {
           if (player.body.onFloor()) {
