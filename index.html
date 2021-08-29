@@ -28,7 +28,7 @@
       var game = new Phaser.Game(config);
       var score = 0;
       var scoreText;
-
+      var jumpCount = 0;
       function preload() {
         this.load.image("sky", "assets/sky.png");
         this.load.image("ground", "assets/platform.png");
@@ -45,7 +45,8 @@
         platforms.create(400, 568, "ground").setScale(2).refreshBody();
 
         platforms.create(600, 400, "ground");
-        platforms.create(50, 250, "ground");
+        platforms.create(50, 350, "ground");
+        platforms.create(50, 150, "ground");
         platforms.create(750, 220, "ground");
 
         player = this.physics.add.sprite(100, 450, "dude");
@@ -143,9 +144,19 @@
 
           player.anims.play("turn");
         }
+        const didPressJump = Phaser.Input.Keyboard.JustDown(cursors.up);
+        // const didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
 
-        if (cursors.up.isDown && player.body.touching.down) {
-          player.setVelocityY(-630);
+        if (didPressJump) {
+          if (player.body.onFloor()) {
+            // player can only double jump if it is on the floor
+            this.canDoubleJump = true;
+            player.body.setVelocityY(-330);
+          } else if (this.canDoubleJump) {
+            // player can only jump 2x (double jump)
+            this.canDoubleJump = false;
+            player.body.setVelocityY(-330);
+          }
         }
       }
     </script>
