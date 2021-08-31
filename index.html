@@ -32,7 +32,8 @@
       var scoreText;
       var jumpCount = 0;
       function preload() {
-        this.load.image("sky", "assets/sky.png");
+        // this.load.image("sky", "assets/sky.png");
+        this.load.image("space", "assets/space.png");
         this.load.image("ground", "assets/platform.png");
         this.load.image("star", "assets/star.png");
         this.load.image("bomb", "assets/bomb.png");
@@ -40,7 +41,7 @@
       }
 
       function create() {
-        this.add.image(400, 300, "sky");
+        this.add.image(400, 300, "space");
 
         platforms = this.physics.add.staticGroup();
 
