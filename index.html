@@ -65,14 +65,16 @@
         this.youWinText = this.add.text(220, 280, "You Win!", { fontSize: "64px", fill: "#000" });
         this.youWinText.visible = false;
 
-        const tryAgainButton = this.add.text(220, 280, "Try Again", { fontSize: "64px", fill: "#000" });
-        tryAgainButton.setInteractive();
+        this.tryAgainButton = this.add.text(220, 430, "Try Again?", { fontSize: "64px", fill: "#000" });
+        this.tryAgainButton.setInteractive();
 
-        tryAgainButton.on("pointerover", () => tryAgainButton.setStyle({ fill: "#ff0" }));
+        this.tryAgainButton.visible = false;
 
-        tryAgainButton.on("pointerout", () => tryAgainButton.setStyle({ fill: "#000" }));
+        this.tryAgainButton.on("pointerover", () => this.tryAgainButton.setStyle({ fill: "#ff0" }));
 
-        tryAgainButton.on("pointerdown", () => {
+        this.tryAgainButton.on("pointerout", () => this.tryAgainButton.setStyle({ fill: "#000" }));
+
+        this.tryAgainButton.on("pointerdown", () => {
           // console.log("pointerdown");
           this.registry.destroy(); // destroy registry
           this.events.off(); // disable all active events
@@ -157,6 +159,7 @@
 
         gameOver = true;
         this.gameOverText.visible = true;
+        this.tryAgainButton.visible = true;
       }
 
       function update() {
