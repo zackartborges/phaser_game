@@ -32,9 +32,10 @@
       var scoreText;
       var jumpCount = 0;
       function preload() {
-        // this.load.image("sky", "assets/sky.png");
         this.load.image("space", "assets/space.png");
         this.load.image("ground", "assets/platform.png");
+        this.load.image("space-ground", "assets/space-platform.png");
+        this.load.image("space-ground", "assets/small-space-platform.png");
         this.load.image("star", "assets/star.png");
         this.load.image("bomb", "assets/bomb.png");
         this.load.spritesheet("dude", "assets/dude.png", { frameWidth: 32, frameHeight: 48 });
@@ -45,7 +46,7 @@
 
         platforms = this.physics.add.staticGroup();
 
-        platforms.create(400, 568, "ground").setScale(2).refreshBody();
+        platforms.create(400, 568, "space-ground").setScale(2).refreshBody();
 
         platforms.create(600, 400, "ground");
         platforms.create(50, 350, "ground");
