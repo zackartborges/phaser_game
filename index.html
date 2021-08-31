@@ -4,6 +4,8 @@
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
   </head>
   <body>
+    <div id="mygame"></div>
+
     <script>
       var config = {
         type: Phaser.AUTO,
@@ -54,6 +56,7 @@
         player.setCollideWorldBounds(true);
 
         player.body.setGravityY(300);
+        // button
 
         scoreText = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#000" });
         this.gameOverText = this.add.text(220, 280, "GAME OVER", { fontSize: "64px", fill: "#000" });
@@ -61,6 +64,20 @@
 
         this.youWinText = this.add.text(220, 280, "You Win!", { fontSize: "64px", fill: "#000" });
         this.youWinText.visible = false;
+
+        const tryAgainButton = this.add.text(220, 280, "Try Again", { fontSize: "64px", fill: "#000" });
+        tryAgainButton.setInteractive();
+
+        tryAgainButton.on("pointerover", () => tryAgainButton.setStyle({ fill: "#ff0" }));
+
+        tryAgainButton.on("pointerout", () => tryAgainButton.setStyle({ fill: "#000" }));
+
+        tryAgainButton.on("pointerdown", () => {
+          // console.log("pointerdown");
+          this.registry.destroy(); // destroy registry
+          this.events.off(); // disable all active events
+          this.scene.restart(); // restart current scene
+        });
 
         this.anims.create({
           key: "left",
@@ -105,6 +122,7 @@
 
         this.physics.add.collider(player, bombs, hitBomb, null, this);
       }
+
       function collectStar(player, star) {
         star.disableBody(true, true);
 
@@ -170,5 +188,15 @@
         }
       }
     </script>
+    <style>
+      canvas {
+        display: block;
+        margin: auto;
+        /* margin: 75px 0 0 0; */
+      }
+      html {
+        background-color: #0a192f;
+      }
+    </style>
   </body>
 </html>
